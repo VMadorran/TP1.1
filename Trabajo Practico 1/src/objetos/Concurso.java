@@ -16,18 +16,19 @@ public class Concurso {
 		this.puntosConcurso = puntosConcurso;
 	}
 
-	public boolean inscribirse(Participante participante, LocalDate fechaInscripcion) {
-		if (this.inscripcionEnTermino(fechaInscripcion)) {
-			Inscripcion nuevaInscripcion = new Inscripcion(participante, fechaInscripcion);
+	public boolean inscribirse(Participante participante) {
+		if (this.inscripcionEnTermino()) {
+			Inscripcion nuevaInscripcion = new Inscripcion(participante);
 			this.inscriptos.add(nuevaInscripcion);
-			if (fechaInscripcion.equals(fechaInicio))
+			if (LocalDate.now().equals(fechaInicio))
 				participante.agregarPuntos(10);
 			return true;
 		}
 		return false;
 	}
 
-	private boolean inscripcionEnTermino(LocalDate inscripcion) {
+	private boolean inscripcionEnTermino() {
+		LocalDate inscripcion = LocalDate.now();
 		if (((inscripcion.isAfter(fechaInicio)) || (inscripcion.isEqual(fechaInicio)))
 				&& ((inscripcion.isBefore(fechaFin)) || (inscripcion.isEqual(fechaFin)))) {
 			return true;

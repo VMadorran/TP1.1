@@ -11,48 +11,43 @@ import objetos.Participante;
 
 public class ConcursoTest {
 
-	LocalDate inicio = LocalDate.of(2022, 3, 1);
-	LocalDate fin = LocalDate.of(2022, 3, 20);
-
 	@Test
 	public void inscripcionParticipante() {
-		// set up
-		LocalDate inscripcion = LocalDate.of(2022, 3, 12);
-		// Concurso(LocalDate fechaInicio, LocalDate fechaFin, int puntosConcurso)
+
+		LocalDate inicio = LocalDate.now().minusDays(3);
+		LocalDate fin = LocalDate.now().plusDays(15);
+
 		Concurso concurso = new Concurso(inicio, fin, 50);
-		// public Participante(int id)
 		Participante participante = new Participante(1);
-		// excercise
-		boolean resultado = concurso.inscribirse(participante, inscripcion);
-		// verify
+		boolean resultado = concurso.inscribirse(participante);
+
 		assertEquals(true, resultado);
 	}
 
 	@Test
 	public void inscripcionPrimerDia() {
-		// set up
+
+		LocalDate inicio = LocalDate.now();
+		LocalDate fin = LocalDate.now().plusDays(15);
+
 		Concurso concurso = new Concurso(inicio, fin, 20);
 		Participante participante = new Participante(2);
-		// exercise y verify
-		assertEquals(true, concurso.inscribirse(participante, inicio));
+		int puntosParticipante = participante.puntosParticipante();
+		concurso.inscribirse(participante);
 
+		assertEquals(puntosParticipante + 10, participante.puntosParticipante());
 	}
 
 	@Test
 	public void inscrpcionFueraDeTermino() {
-		LocalDate inscrpcion = LocalDate.of(2022, 4, 1);
+
+		LocalDate inicio = LocalDate.now().minusMonths(2);
+		LocalDate fin = LocalDate.now().minusMonths(1);
+
 		Concurso concurso = new Concurso(inicio, fin, 30);
 		Participante participante = new Participante(3);
-		assertEquals(false, concurso.inscribirse(participante, inscrpcion));
 
-	}
-
-	@Test
-	public void inscrpcionFueraDeTerminoDos() {
-		LocalDate inscrpcion = LocalDate.of(2022, 2, 1);
-		Concurso concurso = new Concurso(inicio, fin, 30);
-		Participante participante = new Participante(3);
-		assertEquals(false, concurso.inscribirse(participante, inscrpcion));
+		assertEquals(false, concurso.inscribirse(participante));
 	}
 
 }

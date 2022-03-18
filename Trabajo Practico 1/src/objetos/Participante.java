@@ -13,4 +13,8 @@ public class Participante {
 		this.puntosAcumulados = +puntos;
 	}
 
+	public int puntosParticipante() {
+		return this.puntosAcumulados;
+	}
+
 }

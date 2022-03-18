@@ -6,9 +6,9 @@ public class Inscripcion {
 	private LocalDate fechaInscripcion;
 	private Participante inscripto;
 
-	public Inscripcion(Participante inscripto, LocalDate fechaInscripcion) {
+	public Inscripcion(Participante inscripto) {
 		this.inscripto = inscripto;
-		this.fechaInscripcion = fechaInscripcion;
+		this.fechaInscripcion = LocalDate.now();
 	}
 
 }
